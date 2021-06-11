@@ -1,0 +1,27 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: spring-cloud-zuul-gateway
+
+# 客户端注册进eureka服务列表内
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/,http://localhost:7001/eureka/,http://localhost:7002/eureka/
+    instance-id: gateway-5000.com
+    prefer-ip-address: true # 访问路径可以显示IP地址
+
+zuul:
+  prefix: /ibm
+  ignored-services: "*"
+  routes:
+    mydept.serviceId: spring-cloud-provider-dept
+    mydept.path: /liuxhe/dept/**
+
+info:
+  app.name: spring-cloud-provider-dept
+  company.name: ibm
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
